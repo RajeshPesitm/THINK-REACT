@@ -1,36 +1,32 @@
-import ProductCategoryRow from './ProductCategoryRow';
-import ProductRow from './ProductRow';
+import ProductTableCollection from './ProductTableCollection';
 
 export default function ProductTable({ products, filterText, inStockOnly }) {
-    const rows = [];
-    let lastCategory = null;
-
-    products.forEach((product) => {
+    // Step 1: Filter products based on filterText and inStockOnly
+    const filteredProducts = products.filter((product) => {
         if (
             product.name.toLowerCase().indexOf(
                 filterText.toLowerCase()
             ) === -1
         ) {
-            return;
+            return false;
         }
         if (inStockOnly && !product.stocked) {
-            return;
+            return false;
         }
-        if (product.category !== lastCategory) {
-            rows.push(
-                <ProductCategoryRow
-                    category={product.category}
-                    key={product.category} />
-            );
-        }
-        lastCategory = product.category;
-
-        rows.push(
-            <ProductRow
-                product={product}
-                key={product.name} />
-        );
+        return true;
     });
+
+    // Step 2: Group filtered products by category
+    const groupedByCategory = {};
+    filteredProducts.forEach((product) => {
+        if (!groupedByCategory[product.category]) {
+            groupedByCategory[product.category] = [];
+        }
+        groupedByCategory[product.category].push(product);
+    });
+
+    // Step 3: Get categories in order of first appearance
+    const categories = Object.keys(groupedByCategory);
 
     return (
         <table>
@@ -41,7 +37,15 @@ export default function ProductTable({ products, filterText, inStockOnly }) {
                     <th>In Stock</th>
                 </tr>
             </thead>
-            <tbody>{rows}</tbody>
+            <tbody>
+                {categories.map((category) => (
+                    <ProductTableCollection
+                        key={category}
+                        category={category}
+                        products={groupedByCategory[category]}
+                    />
+                ))}
+            </tbody>
         </table>
     );
 }
