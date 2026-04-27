@@ -1,3 +1,5 @@
+import styles from './styles.module.css';
+
 export default function ProductRow({ product }) {
   const name = product.stocked ? product.name :
     <span style={{ color: 'red' }}>
@@ -6,9 +8,9 @@ export default function ProductRow({ product }) {
 
   return (
     <tr>
-      <td>{name}</td>
-      <td>{product.price}</td>
-      <td>{product.stocked ? 'Yes' : 'No'}</td>
+      <td className={styles.tableCell}>{name}</td>
+      <td className={styles.tableCell}>{product.price}</td>
+      <td className={styles.tableCell}>{product.stocked ? 'Yes' : 'No'}</td>
     </tr>
   );
 }

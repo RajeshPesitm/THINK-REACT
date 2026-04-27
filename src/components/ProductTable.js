@@ -1,4 +1,5 @@
 import ProductTableCollection from './ProductTableCollection';
+import styles from './styles.module.css';
 
 export default function ProductTable({ products, filterText, inStockOnly }) {
     // Step 1: Filter products based on filterText and inStockOnly
@@ -29,23 +30,14 @@ export default function ProductTable({ products, filterText, inStockOnly }) {
     const categories = Object.keys(groupedByCategory);
 
     return (
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>In Stock</th>
-                </tr>
-            </thead>
-            <tbody>
-                {categories.map((category) => (
-                    <ProductTableCollection
-                        key={category}
-                        category={category}
-                        products={groupedByCategory[category]}
-                    />
-                ))}
-            </tbody>
-        </table>
+        <div className={styles.gridContainer}>
+            {categories.map((category) => (
+                <ProductTableCollection
+                    key={category}
+                    category={category}
+                    products={groupedByCategory[category]}
+                />
+            ))}
+        </div>
     );
 }

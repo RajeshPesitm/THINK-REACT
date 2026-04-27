@@ -7,7 +7,9 @@ const PRODUCTS = [
   { category: "Vegetables", price: "$2", stocked: true, name: "Spinach" },
   { category: "Vegetables", price: "$4", stocked: false, name: "Pumpkin" },
   { category: "Vegetables", price: "$1", stocked: true, name: "Peas" },
-  { category: "grains", price: "$1", stocked: true, name: "barley" }
+  { category: "grains", price: "$1", stocked: true, name: "barley" },
+  { category: "spices", price: "$1", stocked: false, name: "turmeric" }
+
 
 ];
 
