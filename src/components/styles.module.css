@@ -13,3 +13,52 @@
 .tableCell {
   text-align: center;
 }
+
+.layoutContainer {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.backButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 20px;
+  transition: background-color 0.3s;
+}
+
+.backButton:hover {
+  background-color: #0056b3;
+}
+
+.pageTitle {
+  margin: 20px 0;
+  color: #333;
+}
+
+.layoutContent {
+  display: contents;
+}
+
+.tableWrapper {
+  width: 100%;
+}
+
+.tableWrapper.clickable {
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tableWrapper.clickable:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.tableWrapper.nonClickable {
+  cursor: default;
+}

@@ -1,7 +1,7 @@
 import ProductTableCollection from './ProductTableCollection';
 import styles from './styles.module.css';
 
-export default function ProductTable({ products, filterText, inStockOnly }) {
+export default function ProductTable({ products, filterText, inStockOnly, onCategoryClick }) {
     // Step 1: Filter products based on filterText and inStockOnly
     const filteredProducts = products.filter((product) => {
         if (
@@ -36,6 +36,7 @@ export default function ProductTable({ products, filterText, inStockOnly }) {
                     key={category}
                     category={category}
                     products={groupedByCategory[category]}
+                    onCategoryClick={onCategoryClick}
                 />
             ))}
         </div>

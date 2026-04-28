@@ -4,3 +4,5 @@ export { default as ProductTable } from './ProductTable';
 export { default as ProductTableCollection } from './ProductTableCollection';
 export { default as ProductCategoryRow } from './ProductCategoryRow';
 export { default as ProductRow } from './ProductRow';
+export { default as Layout } from './Layout';
+export { default as CategoryDetail } from './CategoryDetail';
