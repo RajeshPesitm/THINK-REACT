@@ -1,17 +1,14 @@
 import styles from './styles.module.css';
 
-export default function Layout({ children, title, showBackButton, onBack }) {
+export default function Layout({ children, onHome }) {
     return (
         <div className={styles.layoutContainer}>
-            {showBackButton && (
-                <button 
-                    className={styles.backButton}
-                    onClick={onBack}
-                >
-                    ← Back to Home
-                </button>
-            )}
-            {title && <h1 className={styles.pageTitle}>{title}</h1>}
+            <button 
+                className={styles.backButton}
+                onClick={onHome}
+            >
+                Home
+            </button>
             <div className={styles.layoutContent}>
                 {children}
             </div>
