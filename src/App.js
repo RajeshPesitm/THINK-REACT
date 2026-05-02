@@ -1,19 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FilterableProductTable, CategoryDetail, Layout } from './components';
-
-const PRODUCTS = [
-  { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
-  { category: "Fruits", price: "$2", stocked: false, name: "Passionfruit" },
-  { category: "Fruits", price: "$1", stocked: true, name: "Dragonfruit" },
-  { category: "Vegetables", price: "$2", stocked: true, name: "Spinach" },
-  { category: "Vegetables", price: "$4", stocked: false, name: "Pumpkin" },
-  { category: "Vegetables", price: "$1", stocked: true, name: "Peas" },
-  { category: "grains", price: "$1", stocked: true, name: "barley" },
-  { category: "spices", price: "$1", stocked: false, name: "turmeric" }
-];
 
 export default function App() {
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [PRODUCTS, setProducts] = useState([]); // 🔥 moved to state
+  const backendPort = process.env.REACT_APP_API_PORT || 5000;
+  const backendUrl = `http://localhost:${backendPort}`;
+
+  // 🔥 fetch from MongoDB backend
+  useEffect(() => {
+    fetch(`${backendUrl}/products`)
+      .then(res => res.json())
+      .then(data => setProducts(data))
+      .catch(err => console.log(err));
+  }, [backendUrl]);
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
@@ -28,9 +28,12 @@ export default function App() {
     const categoryProducts = PRODUCTS.filter(
       product => product.category === selectedCategory
     );
+
     content = (
       <>
-        <h1 style={{ marginTop: '0' }}>{selectedCategory} - Products</h1>
+        <h1 style={{ marginTop: '0' }}>
+          {selectedCategory} - Products
+        </h1>
         <CategoryDetail 
           category={selectedCategory}
           products={categoryProducts}
@@ -38,7 +41,12 @@ export default function App() {
       </>
     );
   } else {
-    content = <FilterableProductTable products={PRODUCTS} onCategoryClick={handleCategoryClick} />;
+    content = (
+      <FilterableProductTable 
+        products={PRODUCTS} 
+        onCategoryClick={handleCategoryClick} 
+      />
+    );
   }
 
   return (
