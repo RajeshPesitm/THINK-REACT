@@ -7,12 +7,15 @@ export default function App() {
   const backendPort = process.env.REACT_APP_API_PORT || 5000;
   const backendUrl = `http://localhost:${backendPort}`;
 
-  // 🔥 fetch from MongoDB backend
-  useEffect(() => {
+  const fetchProducts = () => {
     fetch(`${backendUrl}/products`)
       .then(res => res.json())
       .then(data => setProducts(data))
       .catch(err => console.log(err));
+  };
+
+  useEffect(() => {
+    fetchProducts();
   }, [backendUrl]);
 
   const handleCategoryClick = (category) => {
@@ -37,6 +40,7 @@ export default function App() {
         <CategoryDetail 
           category={selectedCategory}
           products={categoryProducts}
+          onProductsUpdated={fetchProducts}
         />
       </>
     );
@@ -44,7 +48,8 @@ export default function App() {
     content = (
       <FilterableProductTable 
         products={PRODUCTS} 
-        onCategoryClick={handleCategoryClick} 
+        onCategoryClick={handleCategoryClick}
+        onProductsUpdated={fetchProducts}
       />
     );
   }
