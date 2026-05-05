@@ -8,7 +8,7 @@ export default function App() {
   const backendUrl = `http://localhost:${backendPort}`;
 
   const fetchProducts = () => {
-    fetch(`${backendUrl}/products`)
+    fetch(`${backendUrl}/api/products`)
       .then(res => res.json())
       .then(data => setProducts(data))
       .catch(err => console.log(err));

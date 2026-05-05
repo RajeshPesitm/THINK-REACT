@@ -11,7 +11,7 @@ export default function ProductRow({ product, onProductsUpdated }) {
 
   const handleUpdate = async () => {
     try {
-      const response = await fetch(`${backendUrl}/products/${product._id}`, {
+      const response = await fetch(`${backendUrl}/api/products/${product._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ export default function ProductRow({ product, onProductsUpdated }) {
     }
 
     try {
-      const response = await fetch(`${backendUrl}/products/${product._id}`, {
+      const response = await fetch(`${backendUrl}/api/products/${product._id}`, {
         method: 'DELETE',
       });
 

@@ -21,7 +21,7 @@ export default function ProductTable({ products, filterText, inStockOnly, onCate
 
     const handleExportAll = async () => {
         try {
-            const response = await fetch(`${backendUrl}/products/export`);
+            const response = await fetch(`${backendUrl}/api/products/export`);
             if (!response.ok) {
                 throw new Error('Export failed');
             }
@@ -50,7 +50,7 @@ export default function ProductTable({ products, filterText, inStockOnly, onCate
         formData.append('file', file);
 
         try {
-            const response = await fetch(`${backendUrl}/products/import`, {
+            const response = await fetch(`${backendUrl}/api/products/import`, {
                 method: 'POST',
                 body: formData,
             });

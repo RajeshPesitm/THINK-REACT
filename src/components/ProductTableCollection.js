@@ -11,7 +11,7 @@ export default function ProductTableCollection({ category, products, onCategoryC
         event.stopPropagation();
 
         try {
-            const response = await fetch(`${backendUrl}/products/export?category=${encodeURIComponent(category)}`);
+            const response = await fetch(`${backendUrl}/api/products/export?category=${encodeURIComponent(category)}`);
             if (!response.ok) {
                 throw new Error('Export failed');
             }
@@ -41,7 +41,7 @@ export default function ProductTableCollection({ category, products, onCategoryC
         formData.append('file', file);
 
         try {
-            const response = await fetch(`${backendUrl}/products/import?category=${encodeURIComponent(category)}`, {
+            const response = await fetch(`${backendUrl}/api/products/import?category=${encodeURIComponent(category)}`, {
                 method: 'POST',
                 body: formData,
             });

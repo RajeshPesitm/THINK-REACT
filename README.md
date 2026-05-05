@@ -1,30 +1,24 @@
 ```txt
 Promt 1: 
-Make this part visible on click
-Also keep rest of the things intact.
-i mean,
-const handleCategoryClick = (category) => {
-setSelectedCategory(category);
-};
+scaffold backend professionaly.
+and make appropriate updateds in /src to keep /backend intact
 
-Preserve this part intact
 
-src/components/ProductTableCollection.js lines, 65 70-85
-src/App.js lines 5-6, 21-23
+Discription:
+To scaffold the backend professionally while keeping the backend folder intact, I'll:  
+
+Add a standard backend structure (controllers, routes, models, middlewares, config, etc.) inside backend.  
+Update src (the frontend) to interact with the backend via API calls, without moving or renaming backend.  
+Ensure the backend is ready for production (env, error handling, structure, etc.).  
+
+
 ```
 
-```txt
-Prompt 2:
-Add View Button for each <tr>.
-when view Button is Clicked then this <tr> expands inside <tbody> and two more buttons Update and delete appears.
-
-Update Allows updating {name}, {product.price}, {product.stocked} in mongodb database.
-
-if convinient, create additional components in ./src/components
-
-src/components/ProductRow.js
-```
 
 [1. Features Updated](./Updates.md) – Creating NODE.js Express server + mongoDB connection 
 
 [2. Backend Setup](./backend/README.md) – Creating NODE.js Express server + mongoDB connection 
+
+
+
+
