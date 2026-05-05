@@ -66,24 +66,26 @@ export default function ProductTableCollection({ category, products, onCategoryC
         >
             <div className={styles.tableHeader}>
                 <h2>{category}</h2>
-                <div className={styles.toolbar} onClick={(event) => event.stopPropagation()}>
-                    <label className={styles.uploadLabel}>
-                        Import
-                        <input
-                            type="file"
-                            accept=".xlsx,.xls"
-                            hidden
-                            onChange={handleImportCategory}
-                        />
-                    </label>
-                    <button
-                        type="button"
-                        className={styles.actionButton}
-                        onClick={handleExportCategory}
-                    >
-                        Export
-                    </button>
-                </div>
+                {isDetailView && (
+                    <div className={styles.toolbar} onClick={(event) => event.stopPropagation()}>
+                        <label className={styles.uploadLabel}>
+                            Import
+                            <input
+                                type="file"
+                                accept=".xlsx,.xls"
+                                hidden
+                                onChange={handleImportCategory}
+                            />
+                        </label>
+                        <button
+                            type="button"
+                            className={styles.actionButton}
+                            onClick={handleExportCategory}
+                        >
+                            Export
+                        </button>
+                    </div>
+                )}
             </div>
             <table className={styles.table}>
                 <tbody>
@@ -92,11 +94,13 @@ export default function ProductTableCollection({ category, products, onCategoryC
                         <th>Name</th>
                         <th>Price</th>
                         <th>In Stock</th>
+                        <th>Action</th>
                     </tr>
                     {products.map((product) => (
                         <ProductRow
                             product={product}
-                            key={product.name}
+                            key={product._id || product.name}
+                            onProductsUpdated={onProductsUpdated}
                         />
                     ))}
                 </tbody>

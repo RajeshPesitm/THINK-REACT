@@ -30,7 +30,12 @@ const Product = mongoose.model('Product', productSchema, 'products');
 app.get('/products', async (req, res) => {
     try {
         const products = await Product.find();
-        res.json(products);
+        // Always include _id as string for frontend
+        const productsWithId = products.map(p => ({
+            ...p.toObject(),
+            _id: p._id ? p._id.toString() : undefined
+        }));
+        res.json(productsWithId);
     }
     catch (err) {
         res.status(500).json({ error: err.message });
@@ -111,6 +116,47 @@ app.post('/products/import', upload.single('file'), async (req, res) => {
 
         await Product.bulkWrite(operations);
         res.json({ imported: operations.length });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+
+app.put('/products/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name, price, stocked } = req.body;
+
+        if (!name || price === undefined || stocked === undefined) {
+            return res.status(400).json({ error: 'Missing required fields' });
+        }
+
+        const updated = await Product.findByIdAndUpdate(
+            id,
+            { name, price, stocked },
+            { new: true }
+        );
+
+        if (!updated) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+
+        res.json(updated);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.delete('/products/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deleted = await Product.findByIdAndDelete(id);
+
+        if (!deleted) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+
+        res.json({ deleted: true });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
