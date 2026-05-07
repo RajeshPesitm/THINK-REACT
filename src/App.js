@@ -1,62 +1,37 @@
-import { useState, useEffect } from 'react';
-import { FilterableProductTable, CategoryDetail, Layout } from './components';
+import { useContext, useState } from 'react';
+import { AuthProvider, AuthContext } from './components/AuthContext';
+import Login from './components/Login';
+import Register from './components/Register';
+import AdminDashboard from './components/AdminDashboard';
+import UserDashboard from './components/UserDashboard';
 
-export default function App() {
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [PRODUCTS, setProducts] = useState([]); // 🔥 moved to state
-  const backendPort = process.env.REACT_APP_API_PORT || 5000;
-  const backendUrl = `http://localhost:${backendPort}`;
+function MainApp() {
+  const { user } = useContext(AuthContext);
+  const [showRegister, setShowRegister] = useState(false);
 
-  const fetchProducts = () => {
-    fetch(`${backendUrl}/api/products`)
-      .then(res => res.json())
-      .then(data => setProducts(data))
-      .catch(err => console.log(err));
-  };
-
-  useEffect(() => {
-    fetchProducts();
-  }, [backendUrl]);
-
-  const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
-  };
-
-  const handleHome = () => {
-    setSelectedCategory(null);
-  };
-
-  let content;
-  if (selectedCategory) {
-    const categoryProducts = PRODUCTS.filter(
-      product => product.category === selectedCategory
-    );
-
-    content = (
+  if (!user) {
+    return showRegister ? (
+      <Register onRegister={() => setShowRegister(false)} />
+    ) : (
       <>
-        <h1 style={{ marginTop: '0' }}>
-          {selectedCategory} - Products
-        </h1>
-        <CategoryDetail 
-          category={selectedCategory}
-          products={categoryProducts}
-          onProductsUpdated={fetchProducts}
-        />
+        <Login onLogin={() => {}} />
+        <div style={{ textAlign: 'center', marginTop: 8 }}>
+          <button onClick={() => setShowRegister(true)}>Register as User</button>
+        </div>
       </>
-    );
-  } else {
-    content = (
-      <FilterableProductTable 
-        products={PRODUCTS} 
-        onCategoryClick={handleCategoryClick}
-        onProductsUpdated={fetchProducts}
-      />
     );
   }
 
+  if (user.role === 'admin') {
+    return <AdminDashboard />;
+  }
+  return <UserDashboard />;
+}
+
+export default function App() {
   return (
-    <Layout onHome={handleHome}>
-      {content}
-    </Layout>
+    <AuthProvider>
+      <MainApp />
+    </AuthProvider>
   );
 }
