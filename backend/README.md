@@ -92,6 +92,15 @@ You can insert everything at once:
   { "category": "spices", "price": 1, "stocked": false, "name": "turmeric" }
 ]
 ```
+
+# Also You can insert from FrontEnd Import Button
+
+
+[Sample data for testing](./products.xlsx) – PATH = ./backend/products.xlsx
+
+
+
+
 # ▶️ Running the Server
 
 ```bash id="run1"
