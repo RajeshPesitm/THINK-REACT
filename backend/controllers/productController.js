@@ -24,6 +24,7 @@ exports.exportProducts = async (req, res, next) => {
       name: product.name,
       price: product.price,
       stocked: product.stocked,
+      owner: product.owner || ''
     }));
     const workbook = xlsx.utils.book_new();
     const worksheet = xlsx.utils.json_to_sheet(sheetData);
@@ -58,11 +59,12 @@ exports.importProducts = async (req, res, next) => {
         if (!category || !name || Number.isNaN(price)) {
           return null;
         }
+        const owner = row.owner ? String(row.owner).trim() : "";
         return {
           updateOne: {
-            filter: { category, name },
+            filter: { category, name, owner },
             update: {
-              $set: { category, name, price, stocked },
+              $set: { category, name, price, stocked, owner },
             },
             upsert: true,
           },

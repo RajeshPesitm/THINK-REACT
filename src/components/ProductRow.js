@@ -71,6 +71,7 @@ export default function ProductRow({ product, onProductsUpdated }) {
         <td className={styles.tableCell}>{displayName}</td>
         <td className={styles.tableCell}>{product.price}</td>
         <td className={styles.tableCell}>{product.stocked ? 'Yes' : 'No'}</td>
+        <td className={styles.tableCell}>{product.owner || 'N/A'}</td>
         <td className={styles.tableCell}>
           <button
             type="button"

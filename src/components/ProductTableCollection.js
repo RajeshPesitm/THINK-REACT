@@ -94,6 +94,7 @@ export default function ProductTableCollection({ category, products, onCategoryC
                         <th>Name</th>
                         <th>Price</th>
                         <th>In Stock</th>
+                        <th>Owner</th>
                         <th>Action</th>
                     </tr>
                     {products.map((product) => (

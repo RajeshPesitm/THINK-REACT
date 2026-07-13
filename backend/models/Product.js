@@ -2,9 +2,10 @@ const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
   category: String,
+  name: String,
   price: Number,
   stocked: Boolean,
-  name: String
+  owner: String,
 });
 
 // IMPORTANT: collection name = "products"
